@@ -36,12 +36,12 @@ export default function Home() {
       <p>[{inputToList(submittedEqu).join(', ')}]</p>
       {/* Matrix Repersentation */}
       <h2>Matrix Expansion</h2>
-      <table>
+      <table className={styles.matrix}>
         <tbody>
           {expandPolynomialToMatrix(inputToList(submittedEqu)).map((row, rowIndex) => (
-            <tr key={rowIndex}>
+            <tr key={rowIndex} className={styles.matrix}>
               {row.map((value, columnIndex) => (
-                <td key={columnIndex}>{value}</td>
+                <td key={columnIndex} className={styles.matrix}>{value}</td>
               ))}
             </tr>
           ))}
