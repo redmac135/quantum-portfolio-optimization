@@ -43,14 +43,18 @@ export function matrixToPolynomialHumanReadable(matrix: number[][]): string {
 //  using the matrix of coefficients and (x_1, x_2, x_3, ...)
 //  compute the value of the polynomial
 export function computeMatrixResult(matrix: number[][], inputVector: number[]) {
-  const n = inputVector.length;
-  let result: number = 0;
+  try {
+    const n = inputVector.length;
+    let result: number = 0;
 
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j < n; j++) {
-      result += matrix[i][j] * inputVector[i] * inputVector[j];
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+        result += matrix[i][j] * inputVector[i] * inputVector[j];
+      }
     }
-  }
 
-  return result;
+    return result;
+  } catch (e) {
+    return "Error";
+  }
 }
