@@ -1,4 +1,4 @@
-# Frontend - Quantum Portfoilo Optimization
+# Backend - Quantum Portfoilo Optimization
 
 ## Getting Started
 
@@ -7,21 +7,20 @@
 Install the following
 
 ```bash
-node.js
-npm
+python
 ```
 
 ### Start Development Server
 
-Install node dependencies
+Install pip dependencies
 
 ```bash
-cd frontend
-npm i
+cd backend
+pip install -r requirements.txt
 ```
 
 Run the development server
 
 ```bash
-npm run dev
+uvicorn main:app --reload
 ```
