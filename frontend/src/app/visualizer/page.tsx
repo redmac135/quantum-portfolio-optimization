@@ -29,7 +29,7 @@ export default function Home() {
   }
 
   return (
-    <main className={styles.main}>
+    <main className={styles.wrapper}>
       <input type="text" value={EquInput} onChange={(e) => setEquInput(e.target.value)} onKeyDown={keyPress} />
       <button onClick={handleSubmit}>Submit</button>
       <h2>Input</h2>
