@@ -1,12 +1,13 @@
 import requests
-from settings import API_URL
+from dotenv import load_dotenv
+
+config: dict = load_dotenv()
+API_URL = config.get("API_URL")
+API_KEY = config.get("API_KEY")
+
 
 def get_stock_data(ticker: str) -> dict:
-    # this will just return the raw data from the api
-    # Put your generated API key in the url below
-    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey='
+    url = f"{API_URL}/query?function=TIME_SERIES_DAILY&symbol={ticker}&apikey={API_KEY}"
     r = requests.get(url)
-    data = r.json
-    print(data)
+    data = r.json()
     return data
-    raise NotImplementedError
