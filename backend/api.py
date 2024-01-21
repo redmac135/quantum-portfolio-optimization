@@ -1,7 +1,8 @@
 import requests
+from typing import Dict
 from dotenv import load_dotenv
 
-config: dict = load_dotenv()
+config: Dict[str, str] = load_dotenv()
 API_URL = config.get("API_URL")
 API_KEY = config.get("API_KEY")
 
