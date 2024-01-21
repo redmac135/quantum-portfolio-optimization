@@ -1,10 +1,10 @@
+import os
 import requests
-from typing import Dict
 from dotenv import load_dotenv
 
-config: Dict[str, str] = load_dotenv()
-API_URL = config.get("API_URL")
-API_KEY = config.get("API_KEY")
+config = load_dotenv()
+API_URL = os.environ.get("API_URL")
+API_KEY = os.environ.get("API_KEY")
 
 
 def get_stock_data(ticker: str) -> dict:
