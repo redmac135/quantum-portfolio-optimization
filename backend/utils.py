@@ -1,16 +1,27 @@
 from api import get_stock_data
+from datetime import datetime, timedelta
 
 
 def get_historical_stock_prices(ticker: str) -> list:
     data = get_stock_data(ticker)
     # should convert the dictionary from 'data' into a list of prices
-    TIME_SERIES_DAILY = data.get()
-    prices = [
-        (float(daily("1. open")), float(daily("4. close")))
-        for daily in TIME_SERIES_DAILY
-        if "1. open" and "4. close" in daily
-    ]
+    datelist = list(data.get("Time Series (Daily)").keys())[:300]
+    time_series_daily = data.get("Time Series (Daily)")
+    prices = []
+    for date in datelist:
+        if (
+            "1. open" in time_series_daily[date]
+            and "4. close" in time_series_daily[date]
+        ):
+            prices.append(
+                float(time_series_daily[date]["1. open"]),
+            )
+        else:
+            raise ValueError("Data is missing required fields")
     return prices
+
+
+print(get_historical_stock_prices("TSLA"))
 
 
 def calculate_covariance(list1: list, list2: list) -> float:

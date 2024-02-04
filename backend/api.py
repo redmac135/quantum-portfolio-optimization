@@ -8,7 +8,7 @@ API_KEY = os.environ.get("API_KEY")
 
 
 def get_stock_data(ticker: str) -> dict:
-    url = f"{API_URL}/query?function=TIME_SERIES_DAILY&symbol={ticker}&apikey={API_KEY}"
+    url = f"{API_URL}/query?function=TIME_SERIES_DAILY&symbol={ticker}&outputsize=full&apikey={API_KEY}"
     r = requests.get(url)
     data = r.json()
     return data
