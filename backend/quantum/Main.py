@@ -10,12 +10,12 @@ from sympy import *
 import numpy as np
 import random as random
 
-# Importing all internal files and modules
-import Finding_effective_weights as few # module used to find the weighting system
-import Creating_Expression as ce # module used to create the expression, square and expand it, and create the final dictionary with the weights
-import returnsFormater as rf # module used to add the returns to the final dict
-import ESGScores as esgs # module used to add the ESG scores to the final dict
-import CovarianceFunctions as cv  # module used to add the co-variances to the final dict
+# # Importing all internal files and modules
+# import Finding_effective_weights as few # module used to find the weighting system
+# import Creating_Expression as ce # module used to create the expression, square and expand it, and create the final dictionary with the weights
+# import returnsFormater as rf # module used to add the returns to the final dict
+# import ESGScores as esgs # module used to add the ESG scores to the final dict
+# import CovarianceFunctions as cv  # module used to add the co-variances to the final dict
 
 # All necessary inputs are here
 max_portfolio_weight = 0.2 # max weight that any single asset can compose of the portfolio

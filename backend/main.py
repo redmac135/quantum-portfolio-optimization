@@ -18,11 +18,11 @@ import numpy as np
 import random as random
 
 # Importing all internal files and modules
-import Finding_effective_weights as few # module used to find the weighting system
-import Creating_Expression as ce # module used to create the expression, square and expand it, and create the final dictionary with the weights
-import returnsFormater as rf # module used to add the returns to the final dict
-import ESGScores as esgs # module used to add the ESG scores to the final dict
-import CovarianceFunctions as cv  # module used to add the co-variances to the final dict
+import quantum.Finding_effective_weights as few # module used to find the weighting system
+import quantum.Creating_Expression as ce # module used to create the expression, square and expand it, and create the final dictionary with the weights
+import quantum.returnsFormater as rf # module used to add the returns to the final dict
+import quantum.ESGScores as esgs # module used to add the ESG scores to the final dict
+import quantum.CovarianceFunctions as cv  # module used to add the co-variances to the final dict
 
 returns_penalty_term = 200 # penalty term for the returns
 esg_penalty_term = 10 # penalty term for the esg scores
