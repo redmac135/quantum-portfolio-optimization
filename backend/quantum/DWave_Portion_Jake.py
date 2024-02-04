@@ -1,8 +1,9 @@
 from dwave.system import DWaveSampler, EmbeddingComposite
 import random
 import pandas as pd
+
 # export DWAVE_API_TOKEN=DEV-9ca6dc0e5f9be13b1512c91ae97f6438af5113a0
-#run that in terminal
+# run that in terminal
 
 from dwave.cloud import Client
 
@@ -13,6 +14,7 @@ api_token = "DEV-9ca6dc0e5f9be13b1512c91ae97f6438af5113a0"
 client = Client.from_config(token=api_token)
 
 sampler = EmbeddingComposite(DWaveSampler())
+
 
 def build_relationships(*variables, linear=None, quadratic=None):
     """
@@ -38,23 +40,98 @@ def build_relationships(*variables, linear=None, quadratic=None):
     # Add quadratic relationships between different variables
     for i in range(len(variables)):
         for j in range(i + 1, len(variables)):
-            quadratic[(variables[i], variables[j])] = random.randint(-10,10)
+            quadratic[(variables[i], variables[j])] = random.randint(-10, 10)
 
     # Combine linear and quadratic relationships
     relationships = {**linear, **quadratic}
 
     return relationships
 
+
 # Example usage:
 def main():
-    stock_tickers = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'TSLA', 'FB', 'NFLX', 'NVDA', 'V', 'PYPL',
-                 'INTC', 'CSCO', 'GS', 'JPM', 'IBM', 'GE', 'DIS', 'VZ', 'KO', 'PEP',
-                 'WMT', 'COST', 'AMGN', 'GILD', 'PFE', 'BA', 'CAT', 'CVX', 'XOM', 'GS',
-                 'HD', 'IBM', 'JNJ', 'MCD', 'MRK', 'NKE', 'P&G', 'TRV', 'UNH', 'UTX',
-                 'WBA', 'MMM', 'CVS', 'ABT', 'ABBV', 'MO', 'JPM', 'BAC', 'WFC', 'C',
-                 'MET', 'AXP', 'GS', 'USB', 'CME', 'GS', 'MS', 'JPM', 'GS', 'GS', 'AAPL',
-                 'GOOGL', 'MSFT', 'AMZN', 'TSLA', 'FB', 'NFLX', 'NVDA', 'V', 'PYPL',
-                 'INTC', 'CSCO', 'GS', 'JPM', 'IBM', 'GE', 'DIS', 'VZ', 'KO', 'PEP']
+    stock_tickers = [
+        "AAPL",
+        "GOOGL",
+        "MSFT",
+        "AMZN",
+        "TSLA",
+        "FB",
+        "NFLX",
+        "NVDA",
+        "V",
+        "PYPL",
+        "INTC",
+        "CSCO",
+        "GS",
+        "JPM",
+        "IBM",
+        "GE",
+        "DIS",
+        "VZ",
+        "KO",
+        "PEP",
+        "WMT",
+        "COST",
+        "AMGN",
+        "GILD",
+        "PFE",
+        "BA",
+        "CAT",
+        "CVX",
+        "XOM",
+        "GS",
+        "HD",
+        "IBM",
+        "JNJ",
+        "MCD",
+        "MRK",
+        "NKE",
+        "P&G",
+        "TRV",
+        "UNH",
+        "UTX",
+        "WBA",
+        "MMM",
+        "CVS",
+        "ABT",
+        "ABBV",
+        "MO",
+        "JPM",
+        "BAC",
+        "WFC",
+        "C",
+        "MET",
+        "AXP",
+        "GS",
+        "USB",
+        "CME",
+        "GS",
+        "MS",
+        "JPM",
+        "GS",
+        "GS",
+        "AAPL",
+        "GOOGL",
+        "MSFT",
+        "AMZN",
+        "TSLA",
+        "FB",
+        "NFLX",
+        "NVDA",
+        "V",
+        "PYPL",
+        "INTC",
+        "CSCO",
+        "GS",
+        "JPM",
+        "IBM",
+        "GE",
+        "DIS",
+        "VZ",
+        "KO",
+        "PEP",
+    ]
 
     relationships_dict = build_relationships(*stock_tickers)
 
@@ -64,5 +141,6 @@ def main():
     first_pair = next(iter(sampleset.data()))
 
     print(first_pair)
+
 
 main()
