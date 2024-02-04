@@ -4,6 +4,28 @@ from settings import STOCK_DATA
 from typing import Dict
 from utils import get_historical_stock_prices, calculate_covariance
 import itertools
+import quantum.Main as qm 
+# File where the final code will run
+# importing all external files and modules
+from dwave import * 
+from dwave.system import *
+from dimod import * 
+from itertools import islice
+from itertools import *
+import time
+from sympy import *
+import numpy as np
+import random as random
+
+returns_penalty_term = 200 # penalty term for the returns
+esg_penalty_term = 10 # penalty term for the esg scores
+covariance_penalty_term = 100 # penalty term for the covariance
+weightings_penalty_term = 10000 # penalty term for the weightings
+quantum_Sampler = EmbeddingComposite(DWaveSampler()) # The quantum solver we are using
+# All necessary inputs are here
+max_portfolio_weight = 0.2 # max weight that any single asset can compose of the portfolio
+min_portfolio_weight = 0  # min weight that any single asset can compose of the portfolio
+granularity_factor = 5 # the degree of granularity that the weightings will incurr
 
 app = FastAPI()
 
@@ -42,5 +64,7 @@ async def predict(request: PredictionRequest):
     covarience_matrix
     returns_dict = {stock: STOCK_DATA[stock][0] for stock in request.stock_choices}
     esg_dict = {stock: STOCK_DATA[stock][1] for stock in request.stock_choices}
+
+    qm.main(list(STOCK_DATA.keys()),granularity_factor,max_portfolio_weight,min_portfolio_weight,weightings_penalty_term,returns_dict,returns_penalty_term,esg_dict,es,covarience_matrix,covariance_penalty_term)
 
     raise NotImplementedError

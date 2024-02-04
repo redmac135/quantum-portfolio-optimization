@@ -46,7 +46,7 @@ covariance_penalty_term = 100 # penalty term for the covariance
 weightings_penalty_term = 10000 # penalty term for the weightings
 quantum_Sampler = EmbeddingComposite(DWaveSampler()) # The quantum solver we are using
 
-def main():
+def main(stock_ticker_list,granularity_factor,max_portfolio_weight,min_portfolio_weight,weightings_penalty_term,returns_dict,returns_penalty_term,esg_dict,esg_penalty_term,covariance_dict,covariance_penalty_term,):
     #1: Creating the weighted dictionary with the weight constraints
     variable_list = ce.createVariableList(stock_ticker_list,few.findWeights(granularity_factor,max_portfolio_weight,min_portfolio_weight))
     print("This is the variable list: ")
