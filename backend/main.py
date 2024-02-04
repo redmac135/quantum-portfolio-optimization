@@ -17,6 +17,13 @@ from sympy import *
 import numpy as np
 import random as random
 
+# Importing all internal files and modules
+import Finding_effective_weights as few # module used to find the weighting system
+import Creating_Expression as ce # module used to create the expression, square and expand it, and create the final dictionary with the weights
+import returnsFormater as rf # module used to add the returns to the final dict
+import ESGScores as esgs # module used to add the ESG scores to the final dict
+import CovarianceFunctions as cv  # module used to add the co-variances to the final dict
+
 returns_penalty_term = 200 # penalty term for the returns
 esg_penalty_term = 10 # penalty term for the esg scores
 covariance_penalty_term = 100 # penalty term for the covariance
@@ -65,6 +72,8 @@ async def predict(request: PredictionRequest):
     returns_dict = {stock: STOCK_DATA[stock][0] for stock in request.stock_choices}
     esg_dict = {stock: STOCK_DATA[stock][1] for stock in request.stock_choices}
 
-    qm.main(list(STOCK_DATA.keys()),granularity_factor,max_portfolio_weight,min_portfolio_weight,weightings_penalty_term,returns_dict,returns_penalty_term,esg_dict,es,covarience_matrix,covariance_penalty_term)
-
+    
     raise NotImplementedError
+def main():
+    qm.main(list(STOCK_DATA.keys()),granularity_factor,max_portfolio_weight,min_portfolio_weight,weightings_penalty_term,returns_dict,returns_penalty_term,esg_dict,es,covarience_matrix,covariance_penalty_term)
+main()
