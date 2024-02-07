@@ -62,15 +62,15 @@ async def predict(request: PredictionRequest):
         stock_data[stock] = get_historical_stock_prices(stock)
 
     # calculate covariance matrix
-    covarience_matrix: Dict[tuple(str, str), float] = {}
+    covariance_matrix: Dict[tuple(str, str), float] = {}
     for pair in itertools.combinations(request.stock_choices, 2):
         # calculate covariance between two stocks
         # covariance_matrix[pair] = ...
-        covarience_matrix[pair] = calculate_covariance(
+        covariance_matrix[pair] = calculate_covariance(
             stock_data[pair[0]], stock_data[pair[1]]
         )
         if not pair[0] == pair[1]:
-            covarience_matrix[(pair[1], pair[0])] = covarience_matrix[pair]
+            covariance_matrix[(pair[1], pair[0])] = covariance_matrix[pair]
 
     # data to send to quantum model
     returns_dict = {stock: STOCK_DATA[stock][0] for stock in request.stock_choices}
@@ -86,7 +86,7 @@ async def predict(request: PredictionRequest):
         returns_penalty_term,
         esg_dict,
         esg_penalty_term,
-        covarience_matrix,
+        covariance_matrix,
         covariance_penalty_term,
     )
 
