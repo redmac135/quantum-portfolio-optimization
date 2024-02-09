@@ -11,11 +11,8 @@ import quantum.Main as qm
 from dwave import *
 from dwave.system import *
 from dimod import *
-from itertools import islice
 from itertools import *
-import time
 from sympy import *
-import numpy as np
 import random as random
 
 # Importing all internal files and modules
@@ -90,4 +87,4 @@ async def predict(request: PredictionRequest):
         covariance_penalty_term,
     )
 
-    return {'status': 200}
+    return {"status": 200}
