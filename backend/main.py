@@ -4,7 +4,7 @@ from settings import STOCK_DATA
 from typing import Dict
 from utils import get_historical_stock_prices, calculate_covariance
 import itertools
-import quantum.Main as qm
+import quantum.quantumMain as qm
 
 # File where the final code will run
 # importing all external files and modules
@@ -85,6 +85,7 @@ async def predict(request: PredictionRequest):
         esg_penalty_term,
         covariance_matrix,
         covariance_penalty_term,
+        quantum_Sampler
     )
 
     return {"status": 200}

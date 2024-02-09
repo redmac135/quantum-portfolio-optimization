@@ -1,10 +1,3 @@
-# returns = {"ibm": 0.76,
-#           "microsoft": 0.26,
-#           "apple": 0.7,
-#           }
-
-q = 0.8
-
 
 # updates the returns by applying the penalty term to them
 def updateESG(updateESG, q):
