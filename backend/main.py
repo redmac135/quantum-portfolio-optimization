@@ -36,6 +36,10 @@ min_portfolio_weight = (
 )
 granularity_factor = 5  # the degree of granularity that the weightings will incurr
 
+numreads = 1000 # How many times we run the QPU to get results
+
+chainstrength = 300 # How strong the largest bias is between any 2 variables
+
 app = FastAPI()
 
 
@@ -85,7 +89,9 @@ async def predict(request: PredictionRequest):
         esg_penalty_term,
         covariance_matrix,
         covariance_penalty_term,
-        quantum_Sampler
+        quantum_Sampler,
+        numreads,
+        chainstrength
     )
 
     return {"status": 200}
