@@ -5,8 +5,8 @@ from datetime import datetime, timedelta
 def get_historical_stock_prices(ticker: str) -> list:
     data = get_stock_data(ticker)
     # should convert the dictionary from 'data' into a list of prices
-    datelist = list(data.get("Time Series (Daily)").keys())[:300]
     time_series_daily = data.get("Time Series (Daily)")
+    datelist = list(time_series_daily.keys())[:300]
     prices = []
     for date in datelist:
         if (
@@ -18,10 +18,31 @@ def get_historical_stock_prices(ticker: str) -> list:
             )
         else:
             raise ValueError("Data is missing required fields")
-    return prices
+    return {date: price for date, price in zip(datelist, prices)}
 
 
-print(get_historical_stock_prices("TSLA"))
+def common_keys(dicts):
+    if not dicts or not isinstance(dicts, dict):
+        raise ValueError("Input must be a non-empty dictionary")
+    values = list(dicts.values())
+    if not all(isinstance(d, dict) for d in values):
+        raise ValueError("All values must be dictionaries")
+    if len(values) < 2:
+        raise ValueError("Input must contain at least two dictionaries")
+
+    common_keys_set = set(
+        values[0].keys()
+    )  # Initialize with keys of the first dictionary
+    for d in values[1:]:
+        common_keys_set.intersection_update(
+            d.keys()
+        )  # Update with common keys in each dictionary
+    common_keys_list = list(common_keys_set)
+
+    for key in dicts:
+        dicts[key] = {k: v for k, v in dicts[key].items() if k in common_keys_list}
+
+    return dicts
 
 
 def calculate_covariance(list1: list, list2: list) -> float:

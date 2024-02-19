@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from settings import STOCK_DATA
 from typing import Dict
-from utils import get_historical_stock_prices, calculate_covariance
+from utils import get_historical_stock_prices, calculate_covariance, common_keys
 import itertools
 import quantum.quantumMain as qm
 
@@ -36,15 +36,15 @@ min_portfolio_weight = (
 )
 granularity_factor = 5  # the degree of granularity that the weightings will incurr
 
-numreads = 1000 # How many times we run the QPU to get results
+numreads = 1000  # How many times we run the QPU to get results
 
-chainstrength = 300 # How strong the largest bias is between any 2 variables
+chainstrength = 300  # How strong the largest bias is between any 2 variables
 
 app = FastAPI()
 
 
 class PredictionRequest(BaseModel):
-    stock_choices: list[str]
+    stock_choices: list[str] = STOCK_DATA.keys()
     risk_tolerance: float  # from 0 to 1
 
 
@@ -55,12 +55,21 @@ async def listOptions():
 
 @app.post("/predict")
 async def predict(request: PredictionRequest):
+    # report retrieving data
+    print("Retrieving data...")
+
     # list stock data
-    stock_data: Dict[str, float] = {}
+    stock_data = {}
     for stock in request.stock_choices:
         if not stock in STOCK_DATA.keys():
             raise ValueError(f"Stock {stock} not in options")
         stock_data[stock] = get_historical_stock_prices(stock)
+
+    stock_data = common_keys(stock_data)
+    stock_data = {k: list(v.values()) for k, v in stock_data.items()}
+
+    # report calculating covarience
+    print("Calculating covarience...")
 
     # calculate covariance matrix
     covariance_matrix: Dict[tuple(str, str), float] = {}
@@ -74,11 +83,18 @@ async def predict(request: PredictionRequest):
             covariance_matrix[(pair[1], pair[0])] = covariance_matrix[pair]
 
     # data to send to quantum model
+    print("creating returns dict:")
     returns_dict = {stock: STOCK_DATA[stock][0] for stock in request.stock_choices}
-    esg_dict = {stock: STOCK_DATA[stock][1] for stock in request.stock_choices}
+    print(returns_dict)
 
+    print("creating esg dict:")
+    esg_dict = {stock: STOCK_DATA[stock][1] for stock in request.stock_choices}
+    print(esg_dict)
+
+    # report running quantum model
+    print("Running quantum model...")
     qm.main(
-        list(STOCK_DATA.keys()),
+        request.stock_choices,
         granularity_factor,
         max_portfolio_weight,
         min_portfolio_weight,
@@ -91,7 +107,7 @@ async def predict(request: PredictionRequest):
         covariance_penalty_term,
         quantum_Sampler,
         numreads,
-        chainstrength
+        chainstrength,
     )
 
     return {"status": 200}

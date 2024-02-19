@@ -1,16 +1,13 @@
 # updates the returns by applying the penalty term to them
 def updateReturns(returns, q):
-    updatedReturns = {}
-    for stock, returned in returns.items():
-        result = q * returned
-        updatedReturns.setdefault(stock, result)
-    return updatedReturns
+    return {stock: q * returned for stock, returned in returns.items()}
 
 
 # Add Updated returns to final Linear( both tickers are the same) Dictionary
 def updateFinalLinearDic(finalDictionary, returnsDic):
+    print(returnsDic)
     # Go through List of all Variables
-    for key, value in finalDictionary.items():
+    for key in finalDictionary.keys():
         stock_symbol_1, stock_symbol_2 = key
         # Split the variable names by format expected to check if they are the same relationship
 
