@@ -44,7 +44,8 @@ app = FastAPI()
 
 
 class PredictionRequest(BaseModel):
-    stock_choices: list[str] = STOCK_DATA.keys()
+    # stock choices should default to STOCK_DATA.keys()
+    stock_choices: list[str]
     risk_tolerance: float  # from 0 to 1
 
 
@@ -93,7 +94,7 @@ async def predict(request: PredictionRequest):
 
     # report running quantum model
     print("Running quantum model...")
-    qm.main(
+    investment_stragety = qm.main(
         request.stock_choices,
         granularity_factor,
         max_portfolio_weight,
@@ -110,4 +111,4 @@ async def predict(request: PredictionRequest):
         chainstrength,
     )
 
-    return {"status": 200}
+    return {"status": 200, "data": investment_stragety}

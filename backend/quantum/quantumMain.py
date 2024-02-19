@@ -11,10 +11,10 @@ import numpy as np
 import random as random
 
 # # Importing all internal files and modules
-import quantum.Finding_effective_weights as few # module used to find the weighting system
-import quantum.Creating_Expression as ce # module used to create the expression, square and expand it, and create the final dictionary with the weights
-import quantum.returnsFormater as rf # module used to add the returns to the final dict
-import quantum.ESGScores as esgs # module used to add the ESG scores to the final dict
+import quantum.Finding_effective_weights as few  # module used to find the weighting system
+import quantum.Creating_Expression as ce  # module used to create the expression, square and expand it, and create the final dictionary with the weights
+import quantum.returnsFormater as rf  # module used to add the returns to the final dict
+import quantum.ESGScores as esgs  # module used to add the ESG scores to the final dict
 import quantum.CovarianceFunctions as cv  # module used to add the co-variances to the final dict
 
 # # All necessary inputs are here
@@ -81,7 +81,7 @@ def main(
     covariance_penalty_term,
     quantum_solver,
     number_of_reads,
-    chain_strength_inputted
+    chain_strength_inputted,
 ):
     # 1: Creating the weighted dictionary with the weight constraints #CHECKED
     variable_list = ce.createVariableList(
@@ -91,13 +91,13 @@ def main(
 
     print("This is the variable list: ")
     print(variable_list)
-    expression = ce.create_squared_expression(variable_list) #CHECKED
+    expression = ce.create_squared_expression(variable_list)  # CHECKED
     print("This is the expression: ")
     print(expression)
-    expanded_expression = ce.square_and_expand_expression(expression) #CHECKED
-    weighted_dict = ce.multiply_dict_values( 
+    expanded_expression = ce.square_and_expand_expression(expression)  # CHECKED
+    weighted_dict = ce.multiply_dict_values(
         ce.extract_variable_terms(expanded_expression), weightings_penalty_term
-    ) #CHECKED
+    )  # CHECKED
     print("This is the weighted dictionary, which includes all variables: ")
     print(weighted_dict)
     final_dict = weighted_dict
@@ -111,20 +111,22 @@ def main(
     )  # next, add the returns to the final dict #CHECKED< DOES NOT RETURN ANYTHING WHICH IS GOOD
 
     # 3: Adding the ESG Scores to the variables
-    updated_esg = esgs.updateESG(esg_dict, esg_penalty_term) #CHECKED
-    esgs.updateFinalLinearDic(final_dict, updated_esg) #CHECKED< DOES NOT RETURN ANYTHING
+    updated_esg = esgs.updateESG(esg_dict, esg_penalty_term)  # CHECKED
+    esgs.updateFinalLinearDic(
+        final_dict, updated_esg
+    )  # CHECKED< DOES NOT RETURN ANYTHING
 
     # 4: Adding the Covariance to the variables
     cv.addCovariance(
         final_dict, ce.multiply_dict_values(covariance_dict, covariance_penalty_term)
-    ) #CHECKED < DOES NOT RETURN ANYTHING
+    )  # CHECKED < DOES NOT RETURN ANYTHING
 
     print("This is the final data set we are optimizing for: ")
     print(str(final_dict))
 
     # 5: Run it on a quantum computer
     sampleset = quantum_solver.sample_qubo(
-        final_dict, num_reads=number_of_reads, chain_strength= chain_strength_inputted
+        final_dict, num_reads=number_of_reads, chain_strength=chain_strength_inputted
     )
 
     first_datum = next(islice(sampleset.data(fields=["sample", "energy"]), 1), None)
@@ -139,7 +141,7 @@ def main(
         print("This is the lowest energy result: ")
         print(sample_dict)
 
-    formatted_dict = ce.process_input_dictionary(sample_dict) #checked
+    formatted_dict = ce.process_input_dictionary(sample_dict)  # checked
 
     # print(covariance_dict)
     # print(returns_dict)
@@ -147,7 +149,8 @@ def main(
 
     # print(formatted_dict)
     print("This is the suggested investment strategy: ")
-    ce.print_investment_strategy(formatted_dict) #checked
+    ce.print_investment_strategy(formatted_dict)  # checked
 
     dwave.inspector.show(sampleset)
 
+    return formatted_dict
