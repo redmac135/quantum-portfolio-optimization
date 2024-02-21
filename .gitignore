@@ -37,6 +37,3 @@ next-env.d.ts
 
 .idea
 __pycache__
-
-# env
-.env
