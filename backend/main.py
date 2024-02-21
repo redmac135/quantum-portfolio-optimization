@@ -38,7 +38,7 @@ granularity_factor = 5  # the degree of granularity that the weightings will inc
 
 numreads = 1000  # How many times we run the QPU to get results
 
-chainstrength = 300  # How strong the largest bias is between any 2 variables
+chainstrength = 600  # How strong the largest bias is between any 2 variables
 
 app = FastAPI()
 
