@@ -22,10 +22,10 @@ import random as random
 # import quantum.ESGScores as esgs  # module used to add the ESG scores to the final dict
 # import quantum.CovarianceFunctions as cv  # module used to add the co-variances to the final dict
 
-returns_penalty_term = 500  # penalty term for the returns
+returns_penalty_term = 50  # penalty term for the returns
 esg_penalty_term = 10  # penalty term for the esg scores
-covariance_penalty_term = 100  # penalty term for the covariance
-weightings_penalty_term = 50000  # penalty term for the weightings
+covariance_penalty_term = 10  # penalty term for the covariance
+weightings_penalty_term = 50000 # penalty term for the weightings
 quantum_Sampler = EmbeddingComposite(DWaveSampler())  # The quantum solver we are using
 # All necessary inputs are here
 max_portfolio_weight = (
