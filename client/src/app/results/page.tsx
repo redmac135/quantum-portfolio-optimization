@@ -1,5 +1,11 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
-  return <main></main>;
+import Image from "next/image";
+import { useContext } from "react";
+import { resultsContext } from "../resultsContext";
+
+export default function Results() {
+  const { results, setResults } = useContext(resultsContext);
+
+  return results ? <main></main> : "";
 }
