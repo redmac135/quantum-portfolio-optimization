@@ -48,17 +48,17 @@ export default function Preferences() {
   }
 
   return (
-    <div id={styles["page"]}> 
+    <div id={styles["page"]}>
+        <div id={styles["background-image"]}>
+            <Image
+                src="/preferencesBackground.png"
+                priority={true}
+                fill={true}
+                style={{objectFit: 'cover'}}
+                alt="background-image"
+            />
+        </div>
         <div id={styles["alignment"]}>
-            <div id={styles["background-image"]}>
-                <Image
-                    src="/preferencesBackground.png"
-                    priority={true}
-                    width={546}
-                    height={832}
-                    alt="background-image"
-                />
-            </div>
             <div id={styles["container"]}>
                 <div className={styles["bubble"]}>
                     <h1>Portfolio Preference Dashboard</h1>

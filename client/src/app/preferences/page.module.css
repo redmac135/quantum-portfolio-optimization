@@ -16,11 +16,18 @@
     justify-content: center;
     height: 832px;
     align-items: flex-start;
+
+}
+
+
+#background-image {
+    position: relative;
+    height: 100%;
+    width: 100%;
 }
 
 #alignment {
-    width: 100%;
-    max-width: 1600px;
+    width: fit-content;
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
@@ -32,6 +39,7 @@
     width: fit-content;
     margin: 30px 30px;
     align-items: center;
+    background-color: #061137;
 }
 
 .bubble {
@@ -94,9 +102,9 @@
   
 .slider input::-webkit-slider-thumb {
     appearance: none;
-    width: 30px;
-    height: 30px;
-    background: transparent;
+    width: 45px;
+    height: 39px;
+    background: rgba(255, 255, 255, 0.24);
     border-radius: 100%;
     cursor: pointer;
 }
@@ -107,9 +115,10 @@
     align-items: center;
     color: white;
     position: absolute;
-    width: 96%;
+    width: 94%;
     z-index: 0;
     font-size: 24px;
+    margin-left: 3px;
 }
 
 .slider-number-blur {
@@ -170,7 +179,7 @@
     border-style: none;
     color: white;
     height: 100%;
-    width: 200px;
+    width: 86%;
     outline: none;
 }
 
@@ -196,6 +205,7 @@
     height: 200px;
 }
 
+
 @media screen and (max-width: 900px) {
     #alignment {
         justify-content: center;
@@ -208,5 +218,11 @@
     .bubble h1 {
         white-space: wrap;
         text-align: center;
+    }
+  }
+
+  @media screen and (min-width: 2000px) {
+    #alignment {
+        margin-right: 16%;
     }
   }
