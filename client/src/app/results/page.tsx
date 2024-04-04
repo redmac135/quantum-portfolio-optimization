@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
-import { useContext } from "react";
-import { resultsContext } from "../resultsContext";
+
+import { type Results } from "../types";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 export default function Results() {
-  const { results, setResults } = useContext(resultsContext);
+  const [results, setResults] = useLocalStorage<Results>("results", null);
 
   return results ? <main></main> : "";
 }

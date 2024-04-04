@@ -1,10 +1,9 @@
 "use client";
 import styles from "./page.module.css"
 import Image from "next/image";
-import { redirect } from "next/navigation";
-import { FormEvent, useState } from "react";
-import { useContext } from "react";
-import { resultsContext } from "../resultsContext";
+import { FormEvent, useEffect, useState } from "react";
+import { useLocalStorage } from "@uidotdev/usehooks";
+import { type Results } from "../types";
 
 export default function Preferences() {
   const ESG_MAX = 5;
@@ -14,7 +13,7 @@ export default function Preferences() {
   const [esg, setEsg] = useState(3);
 
   const [isLoading, setIsLoading] = useState(false);
-  // const { results, setResults } = useContext(resultsContext);
+  const [results, setResults] = useLocalStorage<Results>("results", null);
 
   type Submission = {
     risk: 1 | 2 | 3 | 4 | 5;
@@ -26,13 +25,16 @@ export default function Preferences() {
     e.preventDefault();
     setIsLoading(true);
     
-    const result : Submission = {
+    const request: Submission = {
         risk: e.currentTarget.risk.value,
         esg: e.currentTarget.esg.value,
         principle: Number(e.currentTarget.principle.value)
     }
 
-    console.log(result);
+    // TODO ping backend
+
+    // setResults() to result
+    // redirect to /results
 
 
     // try {
