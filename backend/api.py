@@ -1,5 +1,6 @@
 import os
 import requests
+import json
 from dotenv import load_dotenv
 
 config = load_dotenv()
@@ -11,5 +12,12 @@ def get_stock_data(ticker: str) -> dict:
     url = f"{API_URL}/query?function=TIME_SERIES_DAILY&symbol={ticker}&outputsize=full&apikey={API_KEY}"
     r = requests.get(url)
     data = r.json()
-    print(data)
+    with open(f"stockdata/{ticker}.json", "w") as f:
+        json.dump(data, f)
     return data
+
+# def get_stock_data(ticker: str) -> dict:
+#     with open(f"stockdata/{ticker}.json", "r") as f:
+#         data = json.load(f)
+#     return data
+
